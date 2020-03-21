@@ -26,3 +26,17 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500&display=swap');
+ body {
+    padding: 0;
+    margin: 0;
+  }
+#inspire {
+  padding: 0;
+  margin: 0;
+  font-family: 'Poppins', Helvetica, Arial, sans-serif; /* this was it */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+</style>
