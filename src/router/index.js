@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from '@/views/Dashboard.vue'
+import ClassOverview from '@/views/ClassOverview.vue'
 import Class from '@/views/Class.vue'
 
 Vue.use(VueRouter)
@@ -17,9 +18,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
   },
   {
-    path: '/class',
+    path: '/class/:classId',
     name: 'Class',
     component: Class
+  },
+  {
+    path: '/classes',
+    name: 'Classoverview',
+    component: ClassOverview
   }
 ]
 

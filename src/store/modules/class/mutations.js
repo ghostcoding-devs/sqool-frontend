@@ -1,5 +1,5 @@
 export default {
     addToClassList: (state, payload) => {
-        state.classList.push(payload)
+        state.inviteList.push(payload)
     }
 }
