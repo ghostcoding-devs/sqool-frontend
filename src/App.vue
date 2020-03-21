@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire" :style="{background: $vuetify.theme.themes[theme].background}">
-    <Navbar />
+    <Navigation />
     <v-content class="mx-3 mt-4">
       <router-view></router-view>
     </v-content>
@@ -8,14 +8,12 @@
 </template>
 
 <script>
-import SideBar from '@/components/Navigation/Sidedrawer'
-import Navbar from '@/components/Navigation/Navbar'
+import Navigation from '@/components/Navigation/Navigation'
 
 export default {
   name: 'App',
   components: {
-    SideBar,
-    Navbar
+    Navigation
   },
 
   data: () => ({
