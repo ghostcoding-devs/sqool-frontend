@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import exerciseModule from './modules/exercise'
+import exerciseModule from './modules/boilerplate'
+import classModule from './modules/class'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    exercise: exerciseModule
+    exercise: exerciseModule,
+    class: classModule
   }
 })
