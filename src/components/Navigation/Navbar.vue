@@ -31,7 +31,7 @@
       </v-btn>
     </template>
     <v-list dense>
-      <v-list-item v-for="item in authLinks" :key="item.text" router :to="item.route">
+      <v-list-item v-for="item in authLinks" :key="item.text" router :to="item.route" @click="authActionHandler(item.action)">
         <v-list-item-icon>
           <v-icon v-text="item.icon"></v-icon>
         </v-list-item-icon>
@@ -46,22 +46,40 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'Navbar',
-  data: () => ({
-    links: [
+  data () {
+    return {  
+      links: [
       { icon: 'dashboard', text: 'Übersicht', route: '/' },
       { icon: 'folder', text: 'My Projects', route: '/projects' },
       { icon: 'person', text: 'Team', route: '/team' },
       { icon: 'account-group', text: 'Meine Klassen', route: '/classes' }
     ],
     authLinks: [
-     { icon: 'person', text: 'Profile', route: '/profile' },
-     { icon: 'exit_to_app', text: 'LogOut', route: '/logout' },
+     { icon: 'person', text: 'Profile', route: '/profile', action: 'profile' },
+     { icon: 'exit_to_app', text: 'LogOut', route: '/logout', action: 'logout' },
     ],
     drawer: false
-  }),
+    }
+  },
   methods: {
+    ...mapActions('auth', ['signout']),
+    async logout () {
+      console.log("hier")
+      await this.signout()
+    },
+    async authActionHandler (action) {
+      switch (action) {
+        case 'logout':
+          await this.logout()
+          break;
+
+        default:
+          break;
+      }
+    },
     toggleDrawer () {
       this.$emit('onToggleDrawer')
     }
