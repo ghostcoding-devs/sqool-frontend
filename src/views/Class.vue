@@ -5,14 +5,7 @@
         <CreateClass  />
       </v-row>
       <v-row justify="center" v-else>
-        <v-dialog v-model="dialog" width="600px">
-          <template v-slot:activator="{ on }">
-            <v-btn v-if="isTeacher" v-on="on" color="secondary">Schüler hinzufügen</v-btn>
-          </template>
-          <v-card>
-            <InviteList />
-          </v-card>
-        </v-dialog>
+        <EditEmailList />
       </v-row>
     </v-col>
   </v-container>
@@ -22,16 +15,13 @@
 import { mapState, mapActions } from "vuex";
 import CreateClass from "@/components/Class/CreateClass.vue";
 import InviteList from "@/components/Class/create/InviteList.vue";
+import EditEmailList from "@/components/Class/EditEmailList.vue";
 
 export default {
   components: {
     CreateClass,
-    InviteList
-  },
-  data() {
-    return {
-      dialog: false
-    };
+    InviteList,
+    EditEmailList
   },
   computed: {
     ...mapState("user", ["isTeacher"]),

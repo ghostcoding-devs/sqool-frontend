@@ -10,11 +10,9 @@
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </v-card>
-        <div class="pl-4 pr-4 pt-4 pb-4">
-          <v-card width="100px" height="100px" v-for="item in classes" :key="item.id">
-            <v-btn height="100%" width="100%" router :to="`/class/${item.id}`">{{item.name}}</v-btn>
-          </v-card>
-        </div>
+        <v-card class="d-flex" width="100px" height="100px" v-for="item in classes" :key="item.id">
+          <v-btn height="100%" width="100%" router :to="`/class/${item.id}`" >{{item.name}}</v-btn>
+        </v-card>
       </v-row>
     </v-col>
   </v-container>
@@ -24,9 +22,9 @@
 import { mapState } from "vuex";
 
 export default {
-computed:{
-  ...mapState("user", ["classes"])
-}
-}
+  computed: {
+    ...mapState("user", ["classes"])
+  }
+};
 </script>
 
