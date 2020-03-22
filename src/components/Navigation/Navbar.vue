@@ -55,6 +55,7 @@ export default {
       { icon: 'dashboard', text: 'Übersicht', route: '/' },
       { icon: 'folder', text: 'My Projects', route: '/projects' },
       { icon: 'person', text: 'Team', route: '/team' },
+      { icon: 'account-group', text: 'Meine Klassen', route: '/classes' }
     ],
     authLinks: [
      { icon: 'person', text: 'Profile', route: '/profile', action: 'profile' },

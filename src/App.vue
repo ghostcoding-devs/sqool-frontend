@@ -10,12 +10,14 @@
 </template>
 
 <script>
-import Navigation from '@/components/Navigation/Navigation'
+import Navigation from "@/components/Navigation/Navigation";
+import NotificationSnack from "@/components/Notification/NotificationSnack.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Navigation
+    Navigation,
+    NotificationSnack
   },
 
   data: () => ({
@@ -23,24 +25,22 @@ export default {
     //
   }),
   computed: {
-    theme () {
-      return (this.$vuetify.theme.dark) ? 'dark' : 'light'
+    theme() {
+      return this.$vuetify.theme.dark ? "dark" : "light";
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500&display=swap');
- body, html{
-    padding: 0;
-    margin: 0;
-    //  min-height: 100% !important;
-    // height: 100%;
-  }
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500&display=swap");
+body {
+  padding: 0;
+  margin: 0;
+}
 #inspire {
   padding: 0;
   margin: 0;
-  font-family: 'Poppins', Helvetica, Arial, sans-serif; /* this was it */
+  font-family: "Poppins", Helvetica, Arial, sans-serif; /* this was it */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

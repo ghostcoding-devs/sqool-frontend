@@ -31,7 +31,17 @@ const router = new VueRouter({
       meta: {
         requiresAuth: true
       }
-    }
+    },
+   {
+    path: '/class/:classId',
+    name: 'Class',
+    component: Class
+  },
+  {
+    path: '/classes',
+    name: 'Classoverview',
+    component: ClassOverview
+  }
   ]
 })
 
