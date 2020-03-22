@@ -3,22 +3,35 @@
     <template v-slot:activator="{ on }">
       <v-btn v-if="isTeacher" v-on="on" color="secondary">Schüler hinzufügen</v-btn>
     </template>
-    <v-card>
-      <InviteList />
-    </v-card>
+    <v-col>
+      <v-card>
+        <v-row justify="center">
+          <InviteList />
+        </v-row>
+        <v-row justify="center">
+          <v-card-actions>
+            <v-btn color="green">Einladung senden</v-btn>
+          </v-card-actions>
+        </v-row>
+      </v-card>
+    </v-col>
   </v-dialog>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import InviteList from "@/components/Class/create/InviteList.vue";
+import { mapState } from "vuex";
 export default {
-    data() {
-        return{
-            dialog: false
-        }
-    },
-    computed: {
-        ...mapState("user",["isTeacher"])
-    }
-}
+  components: {
+    InviteList
+  },
+  data() {
+    return {
+      dialog: false
+    };
+  },
+  computed: {
+    ...mapState("user", ["isTeacher"])
+  }
+};
 </script>
