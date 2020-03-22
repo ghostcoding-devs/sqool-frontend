@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Dashboard from '../views/Dashboard.vue'
 import Login from '../views/Auth/Login.vue'
 import Register from '../views/Auth/Register.vue'
 import * as fb from 'firebase/app'
@@ -37,14 +36,14 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  // const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
-  // const currentUser = fb.auth().currentUser
-  // const isAuthPage = to.name === 'login'
+  const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
+  const currentUser = fb.auth().currentUser
+  const isAuthPage = to.name === 'login'
 
-  // if (requiresAuth && !currentUser && !isAuthPage) next({ name: 'login' })
-  // // else if (!requiresAuth && currentUser) next('/')
-  // // else if (!requiresAuth && !currentUser) next()
-  // else next()
+  if (requiresAuth && !currentUser && !isAuthPage) next({ name: 'login' })
+  // else if (!requiresAuth && currentUser) next('/')
+  // else if (!requiresAuth && !currentUser) next()
+  else next()
    next()
 })
 
