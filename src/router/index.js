@@ -26,7 +26,7 @@ const router = new VueRouter({
     },
     {
       path: '/',
-      name: 'Dashboard',
+      name: 'dashboard',
       component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue'),
       meta: {
         requiresAuth: true
@@ -42,7 +42,7 @@ router.beforeEach((to, from, next) => {
 
   if (requiresAuth && !currentUser && !isAuthPage) next({ name: 'login' })
   // else if (!requiresAuth && currentUser) next('/')
-  // else if (!requiresAuth && !currentUser) next()
+  else if (!requiresAuth && !currentUser) next()
   else next()
    next()
 })

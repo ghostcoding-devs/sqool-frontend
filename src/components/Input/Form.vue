@@ -1,6 +1,6 @@
 <template>
   <form class="form">
-    <InputField ref="mailRef" inputId="mail" placeholder="Email" type="email" @onInput="inputHandler"/>
+    <InputField ref="mailRef" inputId="email" placeholder="Email" type="email" @onInput="inputHandler"/>
     <InputField ref= "passwordRef" inputId="password" placeholder="Passwort" @onInput="inputHandler" type="password"/>
     <CheckBoxWithText v-if="['register'].includes(this.$route.name)" ref="checkBockRef" inputId="checkBox" @onChecked="inputHandler" :text="checkBoxText"/>
   </form>

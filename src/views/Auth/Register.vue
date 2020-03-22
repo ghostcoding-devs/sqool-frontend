@@ -8,21 +8,22 @@
       <div class="container">
         <h2>Registrieren</h2>
         <LoginRegisterSwitch/>
-        <AuthForm/>
+        <AuthForm ref="registerForm"/>
         <CustomButton
           dark
-          text="Account anlegen"/>
+          text="Account anlegen"
+          @click.native="register('basic')"/>
         <div class="sign">
           <p>oder mit ...</p>
         </div>
         <v-row>
           <v-col lg=6 sm=12 md=12 xs=12>
-            <a class="createWithOAuth">
+            <a class="createWithOAuth" @click="register('facebook')">
               <img :src="`/facebook.svg`"/>
               Facebook</a>
           </v-col>
           <v-col lg=6 sm=12 xs=12>
-          <a class="createWithOAuth"> <img :src="`/google.svg`"/>Google</a>
+          <a class="createWithOAuth" @click="register('google')"> <img :src="`/google.svg`"/>Google</a>
         </v-col>
         </v-row>
     </div>
@@ -36,8 +37,8 @@ import AuthSideBar from '@/components/Auth/SideBar'
 import LoginRegisterSwitch from '@/components/Buttons/LoginRegisterSwitch'
 import CustomButton from '@/components/Buttons/AuthButton'
 import AuthForm from '@/components/Input/Form'
+import { mapActions } from 'vuex'
 export default {
-
   name: 'Register',
   components: {
     AuthSideBar,
@@ -51,6 +52,20 @@ export default {
   computed: {
   },
   methods: {
+    ...mapActions('auth', ['signup']),
+    async register (provider) {
+      let signUpDetails
+      if(provider === 'basic') {
+        signUpDetails = this.$refs.registerForm.getInputData()
+        if(!signUpDetails.checkBox) {
+          alert('Datenschutzbestimmungen nicht angenommen')
+          return
+        }
+      }
+      console.log(signUpDetails)
+      await this.signup({ provider, signUpDetails })
+      this.$router.push({ name: 'dashboard' })
+    }
     // ...mapMutations('common', ['showSidebar', 'showHeader'])
   }
 

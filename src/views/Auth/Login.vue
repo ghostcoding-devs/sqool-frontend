@@ -7,11 +7,12 @@
       <div class="container">
         <h2>Einloggen</h2>
         <LoginRegisterSwitch/>
-        <AuthForm/>
+        <AuthForm ref="loginForm"/>
         <CustomButton
           class="loginButton"
           dark
-          text="Einloggen"/>
+          text="Einloggen"
+          @click.native="login('basic')"/>
         <div class="sign">
           <p>oder mit ...</p>
         </div>
@@ -31,7 +32,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 import AuthSideBar from '@/components/Auth/SideBar'
 import LoginRegisterSwitch from '@/components/Buttons/LoginRegisterSwitch'
 import CustomButton from '@/components/Buttons/AuthButton'
@@ -48,13 +49,24 @@ export default {
   data: () => ({
   }),
   mounted () {
-    this.showSidebar(false)
-    this.showHeader(false)
+
   },
   computed: {
   },
   methods: {
-    ...mapMutations('common', ['showSidebar', 'showHeader'])
+    ...mapActions('auth', ['signin']),
+    async login (provider) {
+      console.log(provider)
+      let signUpDetails
+      if(provider === 'basic') {
+        signUpDetails = this.$refs.loginForm.getInputData()
+      }
+      await this.signin({ provider, signUpDetails })
+      // this.$refs.loginForm.resetForm()
+      // this.$router.push('/')
+      this.$router.push({ name: 'dashboard' })
+    }
+    // ...mapMutations('common', ['showSidebar', 'showHeader'])
   }
 
 }

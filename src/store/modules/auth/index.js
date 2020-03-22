@@ -1,10 +1,7 @@
-import actions from './actions'
+import state from './state'
 import getters from './getters'
+import actions from './actions'
 import mutations from './mutations'
-
-const state = {
-  example: null
-}
 
 export default {
   namespaced: true,
