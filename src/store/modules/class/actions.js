@@ -8,7 +8,20 @@ const createClass = async ({ commit }, payload) => {
             data: response
         }
     } catch (error) {
-        console.log(error)
+        return {
+            success: false
+        }
+    }
+}
+
+const sendEmailInvites = async ({ commit }, payload) => {
+    try {
+        const response = await postRequest('http://localhost:4000/api/v1/', payload)
+        return {
+            success: true,
+            data: response
+        }
+    } catch (error) {
         return {
             success: false
         }
@@ -16,6 +29,7 @@ const createClass = async ({ commit }, payload) => {
 }
 
 export default {
-    createClass
+    createClass,
+    sendEmailInvites
 }
 

@@ -53,7 +53,6 @@ export default {
         const response = await this.createClass({
           name: this.classname
         })
-        console.log(response)
       }
     },
     updateClassName(value) {

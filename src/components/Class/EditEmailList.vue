@@ -6,11 +6,11 @@
     <v-col>
       <v-card>
         <v-row justify="center">
-          <InviteList />
+          <InviteList @editInviteList="updateEmailList"/>
         </v-row>
         <v-row justify="center">
           <v-card-actions>
-            <v-btn color="green">Einladung senden</v-btn>
+            <v-btn color="green" @click="sendMails">Einladung senden</v-btn>
           </v-card-actions>
         </v-row>
       </v-card>
@@ -20,18 +20,29 @@
 
 <script>
 import InviteList from "@/components/Class/create/InviteList.vue";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   components: {
     InviteList
   },
   data() {
     return {
-      dialog: false
+      dialog: false,
+      emailList: []
     };
   },
   computed: {
     ...mapState("user", ["isTeacher"])
+  },
+  methods: {
+    ...mapActions("class",["sendEmailInvites"]),
+    updateEmailList(value){
+      this.emailList = value
+    },
+    async sendMails(){
+      if (this.emailList.length === 0) return alert('Bitte Personen hinzufügen')
+      console.log('funzt', this.emailList)
+    }
   }
 };
 </script>
