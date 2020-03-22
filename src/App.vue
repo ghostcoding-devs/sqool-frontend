@@ -1,7 +1,9 @@
 <template>
   <v-app id="inspire" :style="{background: $vuetify.theme.themes[theme].background}">
-    <Navigation />
-    <v-content class="mx-3 mt-4">
+    <Navigation v-if="!['login', 'register'].includes(this.$route.name)"/>
+     <!-- v-bind:class="{ active: isActive, 'text-danger': hasError }"
+     !['login', 'register'].includes(this.$route.name) ? "mx-3 mt-4 : "" -->
+    <v-content class="`${test}`">
       <router-view></router-view>
     </v-content>
   </v-app>
@@ -17,6 +19,7 @@ export default {
   },
 
   data: () => ({
+    test: 'mx-3 mt-4'
     //
   }),
   computed: {
@@ -28,9 +31,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500&display=swap');
- body {
+ body, html{
     padding: 0;
     margin: 0;
+    //  min-height: 100% !important;
+    // height: 100%;
   }
 #inspire {
   padding: 0;

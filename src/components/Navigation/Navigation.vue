@@ -1,7 +1,7 @@
 <template>
   <nav> 
     <Navbar />
-    <Sidedrawer />
+    <Sidedrawer/>
   </nav>
 </template>
 
@@ -14,11 +14,15 @@ export default {
     Sidedrawer,
     Navbar
   },
-  data: () => ({
-  }),
+  data ()  {
+    return {
+      showDrawer: true
+    }
+  },
+
   methods: {
-    
-  }
+
+  },
 }
 </script>
 
