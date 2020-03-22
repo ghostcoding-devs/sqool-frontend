@@ -11,7 +11,7 @@ import config from '@/config'
 Vue.config.productionTip = false
 const firebaseApp = firebase.initializeApp(config.firebaseConfig)
 let app
-firebase.auth().onAuthStateChanged(user => {
+firebaseApp.auth().onAuthStateChanged(user => {
   console.log('user in main.js')
   if (!app) {
     app = new Vue({

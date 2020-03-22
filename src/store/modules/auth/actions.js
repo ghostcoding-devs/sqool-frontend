@@ -1,4 +1,6 @@
 import firebaseApp from '@/main'
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
 import router from '@/router'
 export default {
   signin: async ({ commit }, payload) => {
@@ -10,9 +12,23 @@ export default {
           console.log(user)
           router.push({ name: 'dashboard' })
         } catch (err) {
-          console.log('error')
+          console.log('error LOOOL')
         }
       break;
+      case 'google':
+        try {
+          let provider = new firebase.auth.GoogleAuthProvider()
+          firebaseApp.auth().languageCode = 'de'
+          try {
+            const { user, credential } = await firebaseApp.auth().signInWithPopup(provider)
+            const { accessToken } = credential
+            router.push({ name: 'dashboard' })
+          } catch (err) {
+            console.log(err)
+          }
+        } catch (err) {
+          console.log(err)
+        }
       default: 
       break;
     }

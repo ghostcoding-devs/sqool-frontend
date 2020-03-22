@@ -25,7 +25,11 @@
               Facebook</a>
           </v-col>
           <v-col lg=6 sm=12 xs=12>
-          <a class="createWithOAuth"> <img :src="`/google.svg`"/>Google</a>
+          <a 
+            class="createWithOAuth"
+            @click="login('google')"> 
+            <img :src="`/google.svg`"/>Google
+          </a>
         </v-col>
         </v-row>
     </div>
@@ -62,9 +66,9 @@ export default {
       if(provider === 'basic') {
         if(!userInput) {
           userInput = this.$refs.loginForm.getInputData()
-          console.log(userInput)
         }
       }
+      console.log('lol inside')
       await this.signin({ provider, userInput })
 
     },
