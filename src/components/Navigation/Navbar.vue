@@ -67,7 +67,6 @@ export default {
   methods: {
     ...mapActions('auth', ['signout']),
     async logout () {
-      console.log("hier")
       await this.signout()
     },
     async authActionHandler (action) {

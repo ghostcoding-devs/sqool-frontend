@@ -35,12 +35,18 @@ const router = new VueRouter({
    {
     path: '/class/:classId',
     name: 'Class',
-    component: Class
+    component: () => import(/* webpackChunkName: "about" */ '../views/Class.vue'),
+      meta: {
+        requiresAuth: true
+    }
   },
   {
     path: '/classes',
     name: 'Classoverview',
-    component: ClassOverview
+    component: () => import(/* webpackChunkName: "about" */ '../views/ClassOverview.vue'),
+    meta: {
+      requiresAuth: true
+    }
   }
   ]
 })
@@ -50,11 +56,15 @@ router.beforeEach((to, from, next) => {
   const currentUser = fb.auth().currentUser
   const isAuthPage = to.name === 'login'
 
-  if (requiresAuth && !currentUser && !isAuthPage) next({ name: 'login' })
-  // else if (!requiresAuth && currentUser) next('/')
-  else if (!requiresAuth && !currentUser) next()
-  else next()
-   next()
+  try {
+    if (requiresAuth && !currentUser && !isAuthPage) next({ name: 'login' })
+    // else if (!requiresAuth && currentUser) next('/')
+    else if (!requiresAuth && !currentUser) next()
+    else next()
+  } catch (err) {
+    console.log('error in router', err)
+    next({ name: 'login' })
+  }
 })
 
 

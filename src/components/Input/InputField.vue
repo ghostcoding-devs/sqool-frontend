@@ -4,7 +4,9 @@
     class="form_field"
     :type="type"
     :placeholder="placeholder"
-    @input="onInput"/>
+    @input="onInput"
+    v-on:keydown.enter="$event.stopPropagation()"
+    v-on:keyup.enter="submitField"/>
 </template>
 
 <script>
@@ -27,6 +29,9 @@ export default {
     },
     clearInput () {
       document.getElementById(this.inputId).value = ''
+    },
+    submitField () {
+      this.$emit('onPressedEnter')
     }
   }
 }

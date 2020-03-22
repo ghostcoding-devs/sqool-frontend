@@ -1,7 +1,21 @@
 <template>
   <form class="form">
-    <InputField ref="mailRef" inputId="email" placeholder="Email" type="email" @onInput="inputHandler"/>
-    <InputField ref= "passwordRef" inputId="password" placeholder="Passwort" @onInput="inputHandler" type="password"/>
+    <InputField 
+      ref="mailRef" 
+      inputId="email" 
+      placeholder="Email" 
+      type="email" 
+      @onInput="inputHandler"
+      @onPressedEnter="keyBoardHandler"
+      />
+    <InputField 
+      ref= "passwordRef" 
+      inputId="password" 
+      placeholder="Passwort" 
+      type="password"
+      @onInput="inputHandler"
+      @onPressedEnter="keyBoardHandler"
+      />
     <CheckBoxWithText v-if="['register'].includes(this.$route.name)" ref="checkBockRef" inputId="checkBox" @onChecked="inputHandler" :text="checkBoxText"/>
   </form>
 </template>
@@ -31,6 +45,10 @@ export default {
       this.$refs.mailRef.clearInput()
       this.$refs.passwordRef.clearInput()
       this.inputData = {}
+    },
+    keyBoardHandler () {
+      const inputData = this.getInputData()
+      this.$emit('onSubmitFormData', inputData)
     }
   }
 }

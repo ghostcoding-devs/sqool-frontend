@@ -7,7 +7,9 @@
       <div class="container">
         <h2>Einloggen</h2>
         <LoginRegisterSwitch/>
-        <AuthForm ref="loginForm"/>
+        <AuthForm 
+          ref="loginForm"
+          @onSubmitFormData="handleFormInput"/>
         <CustomButton
           class="loginButton"
           dark
@@ -55,16 +57,19 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['signin']),
-    async login (provider) {
-      console.log(provider)
-      let signUpDetails
+    async login (provider, signUpDetails) {
+      let userInput = signUpDetails
       if(provider === 'basic') {
-        signUpDetails = this.$refs.loginForm.getInputData()
+        if(!userInput) {
+          userInput = this.$refs.loginForm.getInputData()
+          console.log(userInput)
+        }
       }
-      await this.signin({ provider, signUpDetails })
-      // this.$refs.loginForm.resetForm()
-      // this.$router.push('/')
-      this.$router.push({ name: 'dashboard' })
+      await this.signin({ provider, userInput })
+
+    },
+    handleFormInput (inputData) {
+      this.login('basic', inputData)
     }
     // ...mapMutations('common', ['showSidebar', 'showHeader'])
   }
