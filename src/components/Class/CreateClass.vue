@@ -54,10 +54,10 @@ export default {
     ...mapActions("class", ["createClass"]),
     async sendInvites() {
       if (this.$refs.form.validate()) {
-        this.createClass({
-          name: this.classname,
-          emailList: this.inviteList
-        });
+        const response = await this.createClass({
+          name: this.classname
+        })
+        console.log(response)
       }
     },
     updateClassName(value) {

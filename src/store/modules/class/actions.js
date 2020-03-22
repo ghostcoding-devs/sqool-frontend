@@ -1,11 +1,21 @@
-import postRequest from '@/utils/axios'
+import { postRequest } from '../../../utils/axios'
 
-export default {
-    createClass: async ( { commit }, payload ) => {
-        try {
-            const response = await postRequest('backenURL', classList, 'someHeaders')
-        } catch (error) {
-            
+const createClass = async ({ commit }, payload) => {
+    try {
+        const response = await postRequest('http://localhost:4000/api/v1/classes', payload)
+        return {
+            success: true,
+            data: response
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            success: false
         }
     }
 }
+
+export default {
+    createClass
+}
+
