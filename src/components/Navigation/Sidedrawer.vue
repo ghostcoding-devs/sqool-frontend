@@ -28,7 +28,7 @@ export default {
     return {
       items: [
         { icon: 'dashboard', text: 'Übersicht', route: '/' },
-        { icon: 'folder', text: 'My Projects', route: '/projects' },
+        { icon: 'folder', text: 'My Projects', route: '/login' },
         { icon: 'person', text: 'Team', route: '/team' }
       ]
     }

@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire" :style="{background: $vuetify.theme.themes[theme].background}">
-    <Navigation />
+    <Navigation v-if="!['login', 'register'].includes(this.$route.name)"/>
     <v-content class="mx-3 mt-4">
       <router-view></router-view>
     </v-content>
