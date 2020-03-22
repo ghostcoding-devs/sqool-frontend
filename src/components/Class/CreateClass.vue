@@ -21,10 +21,6 @@
         <InviteList memberList="inviteList" @editInviteList="updateInviteList" />
       </v-row>
       <br />
-      <v-row
-        justify="center"
-      >Wenn Sie alle der Klasse hinzugefügt haben können Sie die Klasse erstellen</v-row>
-      <br />
       <v-row justify="center">
         <v-btn color="primary" @click="sendInvites">Klasse erstellen</v-btn>
       </v-row>
