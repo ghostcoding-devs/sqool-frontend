@@ -1,15 +1,12 @@
 <template>
-<v-card>
-  <v-card-title>LOL</v-card-title>
-</v-card>
+  <Tree />
 </template>
 
 <script>
+import Tree from '@/components/Dashboard/Tree.vue'
 export default {
-
+  components: {
+    Tree
+  }
 }
 </script>
-
-<style>
-
-</style>

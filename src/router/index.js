@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Auth/Login.vue'
 import Register from '../views/Auth/Register.vue'
+import Class from '../views/Class.vue'
+import ClassOverview from '../views/ClassOverview.vue'
 import * as fb from 'firebase/app'
 import 'firebase/auth'
 Vue.use(VueRouter)
