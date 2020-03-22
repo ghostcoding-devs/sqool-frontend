@@ -20,7 +20,7 @@
 
 <script>
 import InviteList from "@/components/Class/create/InviteList.vue";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   components: {
     InviteList
@@ -36,12 +36,17 @@ export default {
   },
   methods: {
     ...mapActions("class",["sendEmailInvites"]),
+    ...mapMutations("notification",["setNotification"]),
     updateEmailList(value){
       this.emailList = value
     },
     async sendMails(){
-      if (this.emailList.length === 0) return alert('Bitte Personen hinzufügen')
-      console.log('funzt', this.emailList)
+      if (this.emailList.length === 0) {
+        return this.setNotification({
+          message: "Bitte mindestens eine Person einfügen",
+          type: 'error'
+        })
+      }
     }
   }
 };
