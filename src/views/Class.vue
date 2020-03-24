@@ -1,13 +1,15 @@
 <template>
   <v-container fluid>
-    <v-col cols="12">
-      <v-row justify="center" v-if="newClass">
-        <CreateClass  />
-      </v-row>
-      <v-row justify="center" v-else>
-        <EditEmailList />
-      </v-row>
-    </v-col>
+    <v-card>
+      <v-col cols="12">
+        <v-btn></v-btn>
+        </v-row>
+        <v-row justify="center">
+          <CreateClass v-if="newClass" />
+          <EditEmailList v-else />
+        </v-row>
+      </v-col>
+    </v-card>
   </v-container>
 </template>
 
@@ -26,8 +28,8 @@ export default {
   computed: {
     ...mapState("user", ["isTeacher"]),
     newClass() {
-      if (this.$route.params.classId === 'create') return true
-      return false
+      if (this.$route.params.classId === "create") return true;
+      return false;
     }
   }
 };

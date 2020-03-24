@@ -6,6 +6,7 @@ import classModule from './modules/class'
 import userModule from './modules/user'
 import notificationModule from './modules/notification'
 import authModule from './modules/auth'
+import chatModule from './modules/chat'
 
 
 Vue.use(Vuex)
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     class: classModule,
     user: userModule,
     notification: notificationModule,
-    auth: authModule
+    auth: authModule,
+    chat: chatModule
   }
 })
