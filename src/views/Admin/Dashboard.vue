@@ -123,7 +123,7 @@ export default {
       this.showWarningDialog = false
       this.setNotification({
         type: 'success',
-        message: `Nutzer ${ user.displayName ? user.displayName : user.email } wurde erfolgreich editiert}`
+        message: `Nutzer ${ user.displayName ? user.displayName : user.email } wurde erfolgreich editiert`
       })
       this.loading.updateUser = false
     },
@@ -132,7 +132,7 @@ export default {
       this.showDeleteDialog = false
       this.setNotification({
         type: 'success',
-        message: `Nutzer ${ user.displayName ? user.displayName : user.email } wurde erfolgreich gelöscht}`
+        message: `Nutzer ${ user.displayName ? user.displayName : user.email } wurde erfolgreich gelöscht`
       })
     },
     discardChanges (event) {
