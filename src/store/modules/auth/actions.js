@@ -2,7 +2,7 @@ import firebaseApp from '@/main'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import router from '@/router'
-import * as userManagement from '@/api/userManagement'
+import userManagament from '@/api/userManagement'
 
 export default {
   signin: async ({ commit }, payload) => {
@@ -20,13 +20,8 @@ export default {
         try {
           let provider = new firebase.auth.GoogleAuthProvider()
           firebaseApp.auth().languageCode = 'de'
-          try {
-            const { user, credential } = await firebaseApp.auth().signInWithPopup(provider)
-            const { accessToken } = credential
-            router.push({ name: 'dashboard' })
-          } catch (err) {
-            console.log(err)
-          }
+          const { user, credential } = await firebaseApp.auth().signInWithPopup(provider)
+          const { accessToken } = credential
         } catch (err) {
           console.log(err)
         }
@@ -34,20 +29,51 @@ export default {
       break;
     }
   },
-   signup: ({ commit }, payload) => {
-    switch (payload.provider) {
-      case 'basic':
-        firebaseApp.auth().createUserWithEmailAndPassword(payload.signUpDetails.email, payload.signUpDetails.password)
-        .then((user) => {
-          console.log(user)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-        break;
-    
-      default:
-        break;
+   signup: async ({ commit }, payload) => {
+     let user
+      switch (payload.provider) {
+        case 'basic':
+          try {
+            const userData = await firebaseApp.auth().createUserWithEmailAndPassword(payload.signUpDetails.email, payload.signUpDetails.password)
+            const user = await userManagament.createUser(user)
+            // commit user
+            commit('notification/setNotification', {
+              type: 'success',
+              message: `Willkommen ${userData.email}`
+            }, { root: true })
+            router.push({ name: 'dashboard' })
+          } catch (err) {
+            router.push({ name: 'login' })
+            commit('notification/setNotification', {
+              type: 'error',
+              message: 'Du hast bereits ein Konto mit der E-Mail Addresse angelegt. Bitte logge dich damit ein.'
+            }, { root: true })
+          }
+          break;
+        case 'google':
+          try {
+            let provider = new firebase.auth.GoogleAuthProvider()
+            firebaseApp.auth().languageCode = 'de'
+            provider.addScope('email')
+            provider.addScope('profile')
+            const userData = await firebaseApp.auth().signInWithPopup(provider)
+            const user = await userManagament.createUser(userData)
+            // commit user
+            router.push({ name: 'dashboard' })
+            commit('notification/setNotification', {
+              type: 'success',
+              message: `Willkommen ${userData.user.displayName}`
+            }, { root: true })
+          } catch (err) {
+            router.push({ name: 'login' })
+            commit('notification/setNotification', {
+              type: 'error',
+              message: 'Du hast dein Konto bereits mit Google verknüpft. Bitte logge dich damit ein.'
+            }, { root: true })
+          }
+          break;
+        default:
+          break;
     }
   },
   signout: async ({ commit }, payload) => {

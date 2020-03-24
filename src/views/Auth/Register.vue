@@ -37,7 +37,7 @@ import AuthSideBar from '@/components/Auth/SideBar'
 import LoginRegisterSwitch from '@/components/Buttons/LoginRegisterSwitch'
 import CustomButton from '@/components/Buttons/AuthButton'
 import AuthForm from '@/components/Input/Form'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 export default {
   name: 'Register',
   components: {
@@ -53,20 +53,18 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['signup']),
+    ...mapMutations('notification', ['setNotification']),
     async register (provider) {
-      let signUpDetails
-      if(provider === 'basic') {
-        signUpDetails = this.$refs.registerForm.getInputData()
-        if(!signUpDetails.checkBox) {
-          alert('Datenschutzbestimmungen nicht angenommen')
-          return
-        }
+      const signUpDetails = this.$refs.registerForm.getInputData()
+      if(!signUpDetails || !signUpDetails.checkBox) {
+        this.setNotification({
+          type: 'error',
+          message: 'Bitte lese dir die Datenschutzbestimmungen durch und bestätigte dies mit dem Setzen des Hakens.'
+        })
+      } else {
+        await this.signup({ provider, signUpDetails })
       }
-      console.log(signUpDetails)
-      await this.signup({ provider, signUpDetails })
-      this.$router.push({ name: 'dashboard' })
     }
-    // ...mapMutations('common', ['showSidebar', 'showHeader'])
   }
 
 }

@@ -63,14 +63,14 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
   const currentUser = fb.auth().currentUser
   const isAuthPage = to.name === 'login'
+  const isRegisterPage = from.name === 'register'
 
   try {
-    if (requiresAuth && !currentUser && !isAuthPage) next({ name: 'login' })
+    if (!isRegisterPage && requiresAuth && !currentUser && !isAuthPage) next({ name: 'login' })
     // else if (!requiresAuth && currentUser) next('/')
     else if (!requiresAuth && !currentUser) next()
     else next()
   } catch (err) {
-    console.log('error in router', err)
     next({ name: 'login' })
   }
 })

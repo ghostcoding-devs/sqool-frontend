@@ -53,7 +53,7 @@
               <v-list-item-subtitle class="ma-0">Bitte melde dich nach dem Ändern deine Mail Addresse erneut an. </v-list-item-subtitle>
               <v-row no-gutters>
                 <v-col class="pa-0 ma-0" cols=12 xs=12> 
-                  <v-text-field label="Neue E-Mail Adresse" outlined class="mt-5"></v-text-field>
+                  <v-text-field color="secondary" label="Neue E-Mail Adresse" outlined class="mt-5"></v-text-field>
                 </v-col>
                 <v-col class="pa-0 ma-0" cols=12>
                   <v-btn class="ma-0" small dark color="green">E-Mail Addresse ändern</v-btn>

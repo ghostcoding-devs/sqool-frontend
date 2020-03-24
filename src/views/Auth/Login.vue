@@ -68,8 +68,9 @@ export default {
           userInput = this.$refs.loginForm.getInputData()
         }
       }
-      console.log('lol inside')
       await this.signin({ provider, userInput })
+      this.$router.push({ name: 'dashboard' })
+
 
     },
     handleFormInput (inputData) {
