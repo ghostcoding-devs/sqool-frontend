@@ -7,12 +7,10 @@ import userModule from './modules/user'
 import notificationModule from './modules/notification'
 import authModule from './modules/auth'
 
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-
     exercise: exerciseModule,
     class: classModule,
     user: userModule,

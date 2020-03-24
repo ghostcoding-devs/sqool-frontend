@@ -55,7 +55,6 @@ export default {
             let provider = new firebase.auth.GoogleAuthProvider()
             firebaseApp.auth().languageCode = 'de'
             provider.addScope('email')
-            provider.addScope('profile')
             const userData = await firebaseApp.auth().signInWithPopup(provider)
             const user = await userManagament.createUser(userData)
             // commit user
@@ -86,7 +85,7 @@ export default {
   },
   getUsers: async ({ commit }, payload) => {
     try {
-      const { users } = (await userManagement.listUsers()).data
+      const { users } = (await userManagament.listUsers()).data
       return users
     } catch (err) {
       console.log(err)
