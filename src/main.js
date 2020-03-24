@@ -12,7 +12,6 @@ Vue.config.productionTip = false
 const firebaseApp = firebase.initializeApp(config.firebaseConfig)
 let app
 firebaseApp.auth().onAuthStateChanged(user => {
-  console.log('user in main.js')
   if (!app) {
     app = new Vue({
     router,

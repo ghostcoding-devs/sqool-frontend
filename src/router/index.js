@@ -47,6 +47,14 @@ const router = new VueRouter({
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    path: '/admin',
+    name: 'AdminView',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Admin/Dashboard.vue'),
+    meta: {
+      requiresAuth: true
+    }
   }
   ]
 })

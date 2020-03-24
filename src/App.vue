@@ -1,8 +1,7 @@
 <template>
   <v-app id="inspire" :style="{background: $vuetify.theme.themes[theme].background}">
+    <NotificationSnack/>
     <Navigation v-if="!['login', 'register'].includes(this.$route.name)"/>
-     <!-- v-bind:class="{ active: isActive, 'text-danger': hasError }"
-     !['login', 'register'].includes(this.$route.name) ? "mx-3 mt-4 : "" -->
     <v-content class="`${test}`">
       <router-view></router-view>
     </v-content>

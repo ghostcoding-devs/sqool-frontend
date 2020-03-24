@@ -2,6 +2,8 @@ import firebaseApp from '@/main'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import router from '@/router'
+import * as userManagement from '@/api/userManagement'
+
 export default {
   signin: async ({ commit }, payload) => {
     let user
@@ -9,10 +11,9 @@ export default {
       case 'basic':
         try {
           user = await firebaseApp.auth().signInWithEmailAndPassword(payload.userInput.email, payload.userInput.password)
-          console.log(user)
           router.push({ name: 'dashboard' })
         } catch (err) {
-          console.log('error LOOOL')
+          console.log('signin error', err)
         }
       break;
       case 'google':
@@ -36,7 +37,6 @@ export default {
    signup: ({ commit }, payload) => {
     switch (payload.provider) {
       case 'basic':
-        console.log(firebaseApp)
         firebaseApp.auth().createUserWithEmailAndPassword(payload.signUpDetails.email, payload.signUpDetails.password)
         .then((user) => {
           console.log(user)
@@ -50,11 +50,41 @@ export default {
         break;
     }
   },
-  signout: () => {
-    firebaseApp.auth().signOut().then(function() {
-      router.push('/login')
-    }).catch(function(error) {
-      console.log("error", error)
-    })
+  signout: async ({ commit }, payload) => {
+    try {
+      await firebaseApp.auth().signOut()
+      router.push({ name: 'login' })
+    } catch (err) {
+      console.log('signOut Error', error)
+    }
+  },
+  getUsers: async ({ commit }, payload) => {
+    try {
+      const { users } = (await userManagement.listUsers()).data
+      return users
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  updateUser: async ({ commit }, payload) => {
+    console.log(payload)
+  },
+  deleteUser: async ({ commit }, payload) => {
+    console.log(payload)
+    console.log('action delteUser')
+    return "lol"
+  },
+  resetPassword: async ({ commit }, payload) => {
+    try {
+      if(!payload) {
+        payload = firebase.auth().currentUser.email
+      }
+      const actionCodeSettings = {
+        url: 'http://localhost:8080/login'
+      }
+      await firebase.auth().sendPasswordResetEmail(payload, actionCodeSettings)
+    } catch (err) {
+      console.log('resetPasswordError', err)
+    }
   }
 }
