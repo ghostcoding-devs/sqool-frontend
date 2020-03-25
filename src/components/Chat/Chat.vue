@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row >
+    <v-row justify="center">
       <v-card width="20vw" class="pr">
         <v-list two-line height="90vh">
           <v-list-item v-for="(onlineUser) in online" :key="onlineUser.id">
@@ -29,7 +29,7 @@
                   >
                     <v-card-text v-if="messageObject.type === 'text'">{{messageObject.message}}</v-card-text>
                     <v-card-text v-if="messageObject.type === 'img'">
-                    <v-img :src="messageObject.message" max-width="400px"></v-img>
+                      <v-img :src="messageObject.message" max-width="400px"></v-img>
                     </v-card-text>
                     <v-card-text class="caption">von: {{messageObject.from}}</v-card-text>
                   </v-card>
@@ -40,9 +40,11 @@
         </v-card>
         <v-row class="messageField">
           <v-text-field label="Nachricht"></v-text-field>
-          <v-btn icon class="sendIcon">
-            <v-icon>mdi-send</v-icon>
-          </v-btn>
+          <div class="sendIcon">
+            <v-btn icon >
+              <v-icon>mdi-send</v-icon>
+            </v-btn>
+          </div>
         </v-row>
       </v-card>
     </v-row>
@@ -86,7 +88,7 @@ export default {
 }
 
 .sendIcon {
-  padding-top: 3%;
+  padding-top: 2%;
   padding-left: 2%;
 }
 </style>
