@@ -9,7 +9,6 @@ import authModule from './modules/auth'
 import studentModule from './modules/student'
 import packageModule from './modules/package'
 
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({

@@ -1,72 +1,65 @@
 <template>
   <div class="wrapper">
     <div class="sidebar">
-      <AuthSideBar/>
+      <AuthSideBar
+      header="Sqool"
+      subHeader="Schule von Zuhause"
+      :sideBarList="sideBarList"/>
     </div>
     <div class="mainContent">
-      <!-- <h1 class="header">Registrierung</h1> -->
       <div class="container">
         <h2>Registrieren</h2>
         <LoginRegisterSwitch/>
-        <AuthForm ref="registerForm"/>
+        <RegisterForm ref="registerForm"/>
         <CustomButton
           dark
           text="Account anlegen"
-          @click.native="register('basic')"/>
-        <div class="sign">
-          <p>oder mit ...</p>
-        </div>
-        <v-row>
-          <v-col lg=6 sm=12 md=12 xs=12>
-            <a class="createWithOAuth" @click="register('facebook')">
-              <img :src="`/facebook.svg`"/>
-              Facebook</a>
-          </v-col>
-          <v-col lg=6 sm=12 xs=12>
-          <a class="createWithOAuth" @click="register('google')"> <img :src="`/google.svg`"/>Google</a>
-        </v-col>
-        </v-row>
-    </div>
+          @click.native="register"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// import { mapMutations } from 'vuex'
 import AuthSideBar from '@/components/Auth/SideBar'
 import LoginRegisterSwitch from '@/components/Buttons/LoginRegisterSwitch'
 import CustomButton from '@/components/Buttons/AuthButton'
-import AuthForm from '@/components/Input/Form'
-import { mapActions } from 'vuex'
+import RegisterForm from '@/components/Input/RegisterForm'
+import { mapActions, mapMutations } from 'vuex'
 export default {
   name: 'Register',
   components: {
     AuthSideBar,
     LoginRegisterSwitch,
     CustomButton,
-    AuthForm
+    RegisterForm
   },
   data: () => ({
+    sideBarList: [
+      'Keine Kosten',
+      'Virtuelle Klassenzimmer',
+      'Echte Übungsaufgaben',
+      'Für alle Schulen nutzbar',
+      'Corona ist doof'
+    ]
   }),
 
   computed: {
   },
   methods: {
     ...mapActions('auth', ['signup']),
-    async register (provider) {
-      let signUpDetails
-      if(provider === 'basic') {
-        signUpDetails = this.$refs.registerForm.getInputData()
-        if(!signUpDetails.checkBox) {
-          alert('Datenschutzbestimmungen nicht angenommen')
-          return
-        }
+    ...mapMutations('notification', ['setNotification']),
+    async register () {
+      const signUpDetails = this.$refs.registerForm.getInputData()
+      if(!signUpDetails || !signUpDetails.checkBox) {
+        this.setNotification({
+          type: 'error',
+          message: 'Bitte lese dir die Datenschutzbestimmungen durch und bestätigte dies mit dem Setzen des Hakens.'
+        })
+      } else {
+        await this.signup(signUpDetails)
       }
-      console.log(signUpDetails)
-      await this.signup({ provider, signUpDetails })
-      this.$router.push({ name: 'dashboard' })
     }
-    // ...mapMutations('common', ['showSidebar', 'showHeader'])
   }
 
 }

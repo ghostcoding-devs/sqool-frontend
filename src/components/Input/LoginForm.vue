@@ -24,7 +24,7 @@
 import InputField from './InputField.vue'
 import CheckBoxWithText from './CheckBoxWithText.vue'
 export default {
-  name: 'Form',
+  name: 'RegisterForm',
   components: {
     InputField,
     CheckBoxWithText

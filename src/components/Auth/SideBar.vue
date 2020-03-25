@@ -1,13 +1,9 @@
 <template>
   <div class="sidebar_content">
-    <h1>Sqool</h1>
-    <p>Schule von Zuhause</p>
+    <h1>{{header}}</h1>
+    <p>{{subHeader}}</p>
     <ul>
-      <li>Keine Kosten</li>
-      <li>Virtuelle Klassenzimmer</li>
-      <li>Echte Übungsaufgaben</li>
-      <li>Für alle Schulen nutzbar</li>
-      <li>Fuck Corona</li>
+      <li v-for="item in sideBarList" :key="item"> {{item}} </li>
     </ul>
     <img :src="`/sidebar.svg`"/>
   </div>
@@ -15,7 +11,12 @@
 
 <script>
 export default {
-  name: 'AuthSideBar'
+  name: 'AuthSideBar',
+  props: {
+    header: String,
+    subHeader: String,
+    sideBarList: Array
+  }
 }
 </script>
 

@@ -8,7 +8,6 @@ const removeNotification = (state) => {
     state.notificationType = null
 }
 
-
 export default {
     setNotification,
     removeNotification,

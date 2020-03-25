@@ -1,7 +1,7 @@
 <template>
-  <v-snackbar v-model="show" :color="color">
+  <v-snackbar v-model="show" :color="color" right bottom>
     {{message}}
-    <v-btn @click="disableNotification">Schließen</v-btn>
+    <v-btn text @click="disableNotification">Schließen</v-btn>
   </v-snackbar>
 </template>
 
@@ -21,11 +21,11 @@ export default {
     ...mapState("notification", ["notificationMessage", "notificationType"]),
   },
     methods: {
-        ...mapMutations("notification", ["removeNotification"]),
-        disableNotification(){
-            this.show = false
-            this.removeNotification(null)
-        }
+      ...mapMutations("notification", ["removeNotification"]),
+      disableNotification(){
+          this.show = false
+          this.removeNotification(null)
+      }
     },
   watch: {
     notificationMessage() {

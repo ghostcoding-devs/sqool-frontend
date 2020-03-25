@@ -11,8 +11,14 @@ import config from '@/config'
 Vue.config.productionTip = false
 const firebaseApp = firebase.initializeApp(config.firebaseConfig)
 let app
-firebaseApp.auth().onAuthStateChanged(user => {
-  console.log('user in main.js')
+firebaseApp.auth().onAuthStateChanged(async (firebaseUser) => {
+  if (firebaseUser) {
+    // console.log(JSON.stringify(firebaseUser, null, 1))
+    const user = await store.dispatch('user/getCurrentUser', firebaseUser.uid, { root: true })
+    if (user) {
+      store.commit('user/setCurrentUser', user)
+    }
+  }
   if (!app) {
     app = new Vue({
     router,
