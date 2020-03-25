@@ -52,10 +52,11 @@ export default {
   data () {
     return {  
       links: [
-      { icon: 'dashboard', text: 'Übersicht', route: '/' },
-      { icon: 'folder', text: 'My Projects', route: '/projects' },
-      { icon: 'person', text: 'Team', route: '/team' },
-      { icon: 'account-group', text: 'Meine Klassen', route: '/classes' }
+      { text: 'Übersicht', route: '/' },
+      { text: 'My Projects', route: '/projects' },
+      { text: 'Team', route: '/team' },
+      { text: 'Meine Klassen', route: '/classes' },
+      { text: 'Admin', route: '/admin' }
     ],
     authLinks: [
      { icon: 'person', text: 'Profile', route: '/profile', action: 'profile' },
