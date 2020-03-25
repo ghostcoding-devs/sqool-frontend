@@ -50,7 +50,7 @@ const router = new VueRouter({
   },
   {
     path: '/exercises/create',
-    name: 'Exercise',
+    name: 'CreateExercise',
     component: () => import(/* webpackChunkName: "about" */ '../views/Exercise/CreateExercise.vue'),
     meta: {
       requiresAuth: true
