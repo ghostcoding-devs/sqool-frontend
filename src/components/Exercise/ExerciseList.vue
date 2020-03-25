@@ -9,9 +9,8 @@
         <v-list-item-subtitle v-text="exercise.description"></v-list-item-subtitle>
       </v-list-item-content>
       <v-list-item-action>
-        <v-btn text color="secondary">Zur Übung</v-btn>
+        <v-btn text color="secondary" @click="goToExercise(exercise.id)">Zur Übung</v-btn>
       </v-list-item-action>
-      <v-divider v-if="exercises.length - 1 !== index" inset></v-divider>
     </v-list-item>
   </v-list>
 </template>
@@ -22,6 +21,11 @@ export default {
     exercises: {
       required: true,
       type: Array
+    }
+  },
+  methods: {
+    goToExercise (id) {
+      this.$emit('goToExercise', id)
     }
   }
 }

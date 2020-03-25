@@ -49,6 +49,14 @@ const router = new VueRouter({
     }
   },
   {
+    path: '/exercises/create',
+    name: 'Exercise',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Exercise/CreateExercise.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: '/exercises/:id',
     name: 'Exercise',
     component: () => import(/* webpackChunkName: "about" */ '../views/Exercise/Exercise.vue'),
@@ -63,7 +71,15 @@ const router = new VueRouter({
     meta: {
       requiresAuth: true
     }
-  }
+  },
+  {
+    path: '/exercises',
+    name: 'ExerciseOverview',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Exercise/ExerciseOverview.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
   ]
 })
 
