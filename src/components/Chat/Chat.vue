@@ -14,10 +14,33 @@
           </v-list-item>
         </v-list>
       </v-card>
-      <v-card width="70vw" height="90vh">
-        <template v-for="(messageObject, index) in conversation">
-          <v-row justify="end" :key="index">{{messageObject.message}}</v-row>
-        </template>
+      <v-card width="70vw" height="90vh" color="white">
+        <v-card max-height="80vh" class="overflow-y-auto">
+          <template v-for="(messageObject, index) in conversation">
+            <div :key="index" class="pb-1 pt-1" justify="end">
+              <v-col>
+                <v-row :justify="(messageObject.from === user.name) ? 'end' : 'start'">
+                  <v-card
+                    class="messageText"
+                    outlined
+                    :key="index"
+                    shaped
+                    :color="(messageObject.from === user.name) ? '#81c784' : '#9d9d9d'"
+                  >
+                    <v-card-text>{{messageObject.message}}</v-card-text>
+                    <v-card-text class="caption">von: {{messageObject.from}}</v-card-text>
+                  </v-card>
+                </v-row>
+              </v-col>
+            </div>
+          </template>
+        </v-card>
+        <v-row class="messageField">
+          <v-text-field label="Nachricht"></v-text-field>
+          <v-btn icon class="sendIcon">
+            <v-icon>mdi-send</v-icon>
+          </v-btn>
+        </v-row>
       </v-card>
     </v-row>
   </v-container>
@@ -46,3 +69,21 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.messageText {
+  width: 60%;
+}
+.messageField {
+  position: absolute;
+  right: 5%;
+  bottom: 0;
+  width: 90%;
+  padding-left: 10%;
+}
+
+.sendIcon {
+  padding-top: 3%;
+  padding-left: 2%;
+}
+</style>
