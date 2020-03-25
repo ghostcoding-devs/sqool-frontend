@@ -1,3 +1,5 @@
 export default {
-    inviteList: []
+    inviteList: [],
+    currentClass: null,
+    classes: []
 }

@@ -2,7 +2,6 @@
   <v-app-bar dense app flat color="inherit">
     <v-toolbar-title class="text-uppercase grey--text">
       <span class="font-weight-light">Sqool</span>
-      <span>-Frontend</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <!-- Navigation Menu -->
@@ -52,10 +51,11 @@ export default {
   data () {
     return {  
       links: [
-      { text: 'Übersicht', route: '/' },
-      { text: 'My Projects', route: '/projects' },
-      { text: 'Team', route: '/team' },
-      { text: 'Meine Klassen', route: '/classes' },
+      { icon: 'dashboard', text: 'Übersicht', route: '/' },
+      { icon: 'folder', text: 'My Projects', route: '/projects' },
+      { icon: 'person', text: 'Team', route: '/team' },
+      { icon: 'account-group', text: 'Meine Klassen', route: '/classes' },
+      { icon: 'book', text: 'Meine Übungen', route: '/exercises' },
       { text: 'Admin', route: '/admin' }
     ],
     authLinks: [

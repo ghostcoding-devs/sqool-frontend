@@ -39,18 +39,10 @@ const router = new VueRouter({
         requiresAuth: true
       }
     },
-    {
-      path: '/class/:classId',
-      name: 'Class',
-      component: () => import(/* webpackChunkName: "about" */ '../views/Class.vue'),
-        meta: {
-          requiresAuth: true
-      }
-    },
-    {
-      path: '/classes',
-      name: 'Classoverview',
-      component: () => import(/* webpackChunkName: "about" */ '../views/ClassOverview.vue'),
+   {
+    path: '/classes/:id',
+    name: 'Class',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Class/Class.vue')
       meta: {
         requiresAuth: true
       }
@@ -63,6 +55,47 @@ const router = new VueRouter({
         requiresAuth: true
       }
     }
+  },
+  {
+    path: '/classes',
+    name: 'Classoverview',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Class/ClassOverview.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/exercises/create',
+    name: 'CreateExercise',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Exercise/CreateExercise.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/exercises/:id',
+    name: 'Exercise',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Exercise/Exercise.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/exercises/:id/:studentId',
+    name: 'ExecuteExercise',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Exercise/ExecExercise.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/exercises',
+    name: 'ExerciseOverview',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Exercise/ExerciseOverview.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
   ]
 })
 
@@ -79,6 +112,5 @@ router.beforeEach((to, from, next) => {
       next({ name: 'login' })
     }
   })
-
 
 export default router
