@@ -42,7 +42,7 @@ const router = new VueRouter({
    {
     path: '/classes/:id',
     name: 'Class',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Class/Class.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Class/Class.vue'),
       meta: {
         requiresAuth: true
       }
@@ -54,8 +54,7 @@ const router = new VueRouter({
       meta: {
         requiresAuth: true
       }
-    }
-  },
+    },
   {
     path: '/classes',
     name: 'Classoverview',
