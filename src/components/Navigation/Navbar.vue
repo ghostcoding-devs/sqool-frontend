@@ -2,7 +2,6 @@
   <v-app-bar dense app flat color="inherit">
     <v-toolbar-title class="text-uppercase grey--text">
       <span class="font-weight-light">Sqool</span>
-      <span>-Frontend</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <!-- Navigation Menu -->

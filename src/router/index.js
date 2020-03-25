@@ -33,9 +33,9 @@ const router = new VueRouter({
       }
     },
    {
-    path: '/class/:classId',
+    path: '/classes/:id',
     name: 'Class',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Class.vue'),
+    component: () => import(/* webpackChunkName: "about" */ '../views/Class/Class.vue'),
       meta: {
         requiresAuth: true
     }
@@ -43,7 +43,23 @@ const router = new VueRouter({
   {
     path: '/classes',
     name: 'Classoverview',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ClassOverview.vue'),
+    component: () => import(/* webpackChunkName: "about" */ '../views/Class/ClassOverview.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/exercises/:id',
+    name: 'Exercise',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Exercise/Exercise.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/exercises/:id/:studentId',
+    name: 'ExecuteExercise',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Exercise/ExecExercise.vue'),
     meta: {
       requiresAuth: true
     }
@@ -51,21 +67,21 @@ const router = new VueRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
-  const currentUser = fb.auth().currentUser
-  const isAuthPage = to.name === 'login'
+// router.beforeEach((to, from, next) => {
+//   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
+//   const currentUser = fb.auth().currentUser
+//   const isAuthPage = to.name === 'login'
 
-  try {
-    if (requiresAuth && !currentUser && !isAuthPage) next({ name: 'login' })
-    // else if (!requiresAuth && currentUser) next('/')
-    else if (!requiresAuth && !currentUser) next()
-    else next()
-  } catch (err) {
-    console.log('error in router', err)
-    next({ name: 'login' })
-  }
-})
+//   try {
+//     if (requiresAuth && !currentUser && !isAuthPage) next({ name: 'login' })
+//     // else if (!requiresAuth && currentUser) next('/')
+//     else if (!requiresAuth && !currentUser) next()
+//     else next()
+//   } catch (err) {
+//     console.log('error in router', err)
+//     // next({ name: 'login' })
+//   }
+// })
 
 
 export default router

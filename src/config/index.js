@@ -8,4 +8,5 @@ export default {
     messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.VUE_APP_FIREBASE_APP_ID
   },
+  backendUrl: process.env.NODE_ENV === 'production' ? '' : 'http://localhost:4000/api/v1/'
 }

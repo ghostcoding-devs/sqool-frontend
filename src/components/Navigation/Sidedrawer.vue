@@ -1,7 +1,11 @@
 <template>
   <v-navigation-drawer dark app clipped-right mini-variant color="#616161">
-    <v-list-item>
+    <v-list-item class="pl-2 pt-1">
+      <v-avatar size="43">
+        <img src="Logo_grünHG.png"/>
+      </v-avatar>
     </v-list-item>
+    <br />
     <v-list dense shaped>
       <v-list-item v-for="item in items" :key="item.text" router :to="item.route" color="primary">
         <v-list-item-icon>

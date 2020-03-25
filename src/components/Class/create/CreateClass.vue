@@ -39,7 +39,6 @@ export default {
   data() {
     return {
       classNameMissing: false,
-      classname: null,
       inviteList: [],
       validate: true,
       classname: null,
