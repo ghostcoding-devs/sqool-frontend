@@ -17,7 +17,6 @@ export default {
   onboarding: async ({ state, commit }, payload) => {
     try {
       const user = { ...state.currentUser }
-      console.log(user)
       user.settings.onboardingCompleted = true
       user.kids = payload.kids
       user.displayName = `${payload.parents.firstName} ${payload.parents.lastName}`
