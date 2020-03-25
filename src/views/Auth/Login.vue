@@ -1,34 +1,33 @@
 <template>
   <div class="wrapper">
     <div class="sidebar">
-      <AuthSideBar/>
+      <AuthSideBar
+      header="Sqool"
+      subHeader="Schule von Zuhause"
+      :sideBarList="sideBarList"/>
     </div>
     <div class="mainContent">
       <div class="container">
         <h2>Einloggen</h2>
         <LoginRegisterSwitch/>
-        <AuthForm 
+        <LoginForm 
           ref="loginForm"
           @onSubmitFormData="handleFormInput"/>
         <CustomButton
           class="loginButton"
           dark
           text="Einloggen"
-          @click.native="login('basic')"/>
+          @click.native="login"/>
         <div class="sign">
-          <p>oder mit ...</p>
+          <p></p>
         </div>
         <v-row>
           <v-col lg=6 sm=12 md=12 xs=12>
             <a class="createWithOAuth">
-              <img :src="`/facebook.svg`"/>
-              Facebook</a>
+            Support kontaktieren</a>
           </v-col>
           <v-col lg=6 sm=12 xs=12>
-          <a 
-            class="createWithOAuth"
-            @click="login('google')"> 
-            <img :src="`/google.svg`"/>Google
+          <a class="createWithOAuth"> Passwort vergessen?
           </a>
         </v-col>
         </v-row>
@@ -42,7 +41,7 @@ import { mapActions } from 'vuex'
 import AuthSideBar from '@/components/Auth/SideBar'
 import LoginRegisterSwitch from '@/components/Buttons/LoginRegisterSwitch'
 import CustomButton from '@/components/Buttons/AuthButton'
-import AuthForm from '@/components/Input/Form'
+import LoginForm from '@/components/Input/LoginForm'
 export default {
 
   name: 'Register',
@@ -50,10 +49,19 @@ export default {
     AuthSideBar,
     LoginRegisterSwitch,
     CustomButton,
-    AuthForm
+    LoginForm
   },
-  data: () => ({
-  }),
+  data () {
+    return {
+      sideBarList: [
+        'Keine Kosten',
+        'Virtuelle Klassenzimmer',
+        'Echte Übungsaufgaben',
+        'Für alle Schulen nutzbar',
+        'Corona ist doof'
+      ]
+    }
+  },
   mounted () {
 
   },
@@ -61,22 +69,13 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['signin']),
-    async login (provider, signUpDetails) {
-      let userInput = signUpDetails
-      if(provider === 'basic') {
-        if(!userInput) {
-          userInput = this.$refs.loginForm.getInputData()
-        }
-      }
-      await this.signin({ provider, userInput })
-      this.$router.push({ name: 'dashboard' })
-
-
+    async login () {
+      const loginDetails = this.$refs.loginForm.getInputData()
+      await this.signin(loginDetails)
     },
     handleFormInput (inputData) {
-      this.login('basic', inputData)
+      this.login(inputData)
     }
-    // ...mapMutations('common', ['showSidebar', 'showHeader'])
   }
 
 }
@@ -197,9 +196,8 @@ $input-text-color: #848ab8;
 }
 .wrapper .mainContent .container .createWithOAuth {
   display: flex;
-  justify-content: center;
+  text-align: center;
   padding-left: 24px;
-  padding-right:48px;
   align-items: center;
   text-transform: uppercase;
   height: 48px;

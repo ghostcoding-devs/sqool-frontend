@@ -5,75 +5,45 @@ import router from '@/router'
 import userManagament from '@/api/userManagement'
 
 export default {
-  signin: async ({ commit }, payload) => {
-    let user
-    switch (payload.provider) {
-      case 'basic':
-        try {
-          user = await firebaseApp.auth().signInWithEmailAndPassword(payload.userInput.email, payload.userInput.password)
-          router.push({ name: 'dashboard' })
-        } catch (err) {
-          console.log('signin error', err)
-        }
-      break;
-      case 'google':
-        try {
-          let provider = new firebase.auth.GoogleAuthProvider()
-          firebaseApp.auth().languageCode = 'de'
-          const { user, credential } = await firebaseApp.auth().signInWithPopup(provider)
-          const { accessToken } = credential
-        } catch (err) {
-          console.log(err)
-        }
-      default: 
-      break;
+  signin: async ({ commit, dispatch }, payload) => {
+    try {
+      const firebaseUser = await firebaseApp.auth().signInWithEmailAndPassword(payload.email, payload.password)
+      const user = await dispatch('user/getCurrentUser', firebaseUser.user.uid, { root: true})
+      commit('user/setCurrentUser', user, { root: true })
+      router.push({ name: 'dashboard' })
+    } catch (err) {
+      if (err.code === 'auth/user-not-found') {
+        commit('notification/setNotification', {
+          type: 'error',
+          message: 'Es wurde kein Benutzer mit der Email Adresse gefunden. Wolltest du dich registrieren?'
+        }, { root: true })
+        router.push({ name: 'register' })
+      }
+      console.log('signin error', err)
     }
   },
    signup: async ({ commit }, payload) => {
-     let user
-      switch (payload.provider) {
-        case 'basic':
-          try {
-            const userData = await firebaseApp.auth().createUserWithEmailAndPassword(payload.signUpDetails.email, payload.signUpDetails.password)
-            const user = await userManagament.createUser(user)
-            // commit user
-            commit('notification/setNotification', {
-              type: 'success',
-              message: `Willkommen ${userData.email}`
-            }, { root: true })
-            router.push({ name: 'dashboard' })
-          } catch (err) {
-            router.push({ name: 'login' })
-            commit('notification/setNotification', {
-              type: 'error',
-              message: 'Du hast bereits ein Konto mit der E-Mail Addresse angelegt. Bitte logge dich damit ein.'
-            }, { root: true })
-          }
-          break;
-        case 'google':
-          try {
-            let provider = new firebase.auth.GoogleAuthProvider()
-            firebaseApp.auth().languageCode = 'de'
-            provider.addScope('email')
-            const userData = await firebaseApp.auth().signInWithPopup(provider)
-            const user = await userManagament.createUser(userData)
-            // commit user
-            router.push({ name: 'dashboard' })
-            commit('notification/setNotification', {
-              type: 'success',
-              message: `Willkommen ${userData.user.displayName}`
-            }, { root: true })
-          } catch (err) {
-            router.push({ name: 'login' })
-            commit('notification/setNotification', {
-              type: 'error',
-              message: 'Du hast dein Konto bereits mit Google verknüpft. Bitte logge dich damit ein.'
-            }, { root: true })
-          }
-          break;
-        default:
-          break;
-    }
+     try {
+       const userData = await firebaseApp.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+       const { data } = await userManagament.createUser(userData)
+       commit('user/setCurrentUser', data, { root: true })
+       commit('notification/setNotification', {
+         type: 'success',
+         message: `Willkommen ${userData.user.email}`
+       }, { root: true })
+        setTimeout(() => {
+          router.push({ name: 'onboarding' })
+        }, 200)
+     } catch (err) {
+       if (err.code === 'auth/email-already-in-use') {
+        commit('notification/setNotification', {
+          type: 'error',
+          message: 'Diese E-Mail Addresse wird bereits verwendet. Wolltest du dich damit einloggen?'
+        }, { root: true })
+        router.push({ name: 'login' })
+       }
+      console.log('signup error', err)
+     }
   },
   signout: async ({ commit }, payload) => {
     try {

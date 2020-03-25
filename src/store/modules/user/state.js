@@ -8,5 +8,5 @@ export default {
     { name: '7B', id:'1234123123' }
     ],
   isTeacher: true,
-  currentUser: null
+  currentUser: {}
 }

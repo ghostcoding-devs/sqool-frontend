@@ -3,6 +3,7 @@ import store from '../store'
 import VueRouter from 'vue-router'
 import Login from '../views/Auth/Login.vue'
 import Register from '../views/Auth/Register.vue'
+import Onboarding from '../views/Auth/Onboarding.vue'
 import * as fb from 'firebase/app'
 import 'firebase/auth'
 Vue.use(VueRouter)
@@ -24,6 +25,11 @@ const router = new VueRouter({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/onboarding',
+      name: 'onboarding',
+      component: Onboarding
     },
     {
       path: '/',
@@ -65,14 +71,14 @@ router.beforeEach((to, from, next) => {
   const currentUser = store.getters['user/currentUser']
   const isAuthPage = to.name === 'login'
   const isRegisterPage = from.name === 'register'
-  try {
-    if (!isRegisterPage && requiresAuth && !currentUser && !isAuthPage) next({ name: 'login' })
-    else if (!requiresAuth && !currentUser) next()
-    else next()
-  } catch (err) {
-    next({ name: 'login' })
-  }
-})
+    try {
+      if (!isRegisterPage && requiresAuth && !currentUser && !isAuthPage) next({ name: 'login' })
+      // else if (!requiresAuth && !currentUser) next()
+      else next()
+    } catch (err) {
+      next({ name: 'login' })
+    }
+  })
 
 
 export default router

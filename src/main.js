@@ -12,15 +12,13 @@ Vue.config.productionTip = false
 const firebaseApp = firebase.initializeApp(config.firebaseConfig)
 let app
 firebaseApp.auth().onAuthStateChanged(async (firebaseUser) => {
-  console.log(firebaseUser.providerData)
   if (firebaseUser) {
-    console.log(JSON.stringify(firebaseUser, null, 1))
-    const user = await store.dispatch('user/getCurrentUser', firebaseUser.email || firebaseUser.providerData[0].email, { root: true })
+    // console.log(JSON.stringify(firebaseUser, null, 1))
+    const user = await store.dispatch('user/getCurrentUser', firebaseUser.uid, { root: true })
     if (user) {
-      store.commit('user/setCurrentUser', getUser)
+      store.commit('user/setCurrentUser', user)
     }
   }
-  
   if (!app) {
     app = new Vue({
     router,
