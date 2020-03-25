@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row justify="space-around">
+    <v-row >
       <v-card width="20vw" class="pr">
         <v-list two-line height="90vh">
           <v-list-item v-for="(onlineUser) in online" :key="onlineUser.id">
@@ -15,7 +15,7 @@
         </v-list>
       </v-card>
       <v-card width="70vw" height="90vh" color="white">
-        <v-card max-height="80vh" class="overflow-y-auto">
+        <v-card max-height="80vh" class="overflow-y-auto mr-2 ml-2 mt-2 mb-2">
           <template v-for="(messageObject, index) in conversation">
             <div :key="index" class="pb-1 pt-1" justify="end">
               <v-col>
@@ -27,7 +27,10 @@
                     shaped
                     :color="(messageObject.from === user.name) ? '#81c784' : '#9d9d9d'"
                   >
-                    <v-card-text>{{messageObject.message}}</v-card-text>
+                    <v-card-text v-if="messageObject.type === 'text'">{{messageObject.message}}</v-card-text>
+                    <v-card-text v-if="messageObject.type === 'img'">
+                    <v-img :src="messageObject.message" max-width="400px"></v-img>
+                    </v-card-text>
                     <v-card-text class="caption">von: {{messageObject.from}}</v-card-text>
                   </v-card>
                 </v-row>
