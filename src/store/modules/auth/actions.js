@@ -24,16 +24,18 @@ export default {
   },
    signup: async ({ commit }, payload) => {
      try {
-       const userData = await firebaseApp.auth().createUserWithEmailAndPassword(payload.email, payload.password)
-       const { data } = await userManagament.createUser(userData)
-       commit('user/setCurrentUser', data, { root: true })
-       commit('notification/setNotification', {
-         type: 'success',
-         message: `Willkommen ${userData.user.email}`
-       }, { root: true })
-        setTimeout(() => {
-          router.push({ name: 'onboarding' })
-        }, 200)
+       const userDataFromFb = await firebaseApp.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+       const result = await userManagament.createUser(userDataFromFb)
+       if (result.error) {
+
+       } else {
+        commit('user/setCurrentUser', result, { root: true })
+        commit('notification/setNotification', {
+          type: 'success',
+          message: `Willkommen ${userDataFromFb.user.email}`
+        }, { root: true })
+        router.push({ name: 'onboarding' })
+       }
      } catch (err) {
        if (err.code === 'auth/email-already-in-use') {
         commit('notification/setNotification', {
@@ -61,9 +63,9 @@ export default {
       console.log(err)
     }
   },
-  updateUser: async ({ commit }, payload) => {
-    console.log(payload)
-  },
+  // updateUser: async ({ commit }, payload) => {
+  //   console.log(payload)
+  // },
   deleteUser: async ({ commit }, payload) => {
     console.log(payload)
     console.log('action delteUser')

@@ -4,11 +4,11 @@ import router from '@/router'
 export default {
   getCurrentUser: async ({ commit }, payload) => {
     try {
-      const getCurrentUser = await userManagament.getUserById(payload)
-      if (getCurrentUser.data.success) {
-        return getCurrentUser.data
+      const result = await userManagament.getUserById(payload)
+      if (result.error) {
+        // error handling
       } else {
-        return null
+        return result.data
       }
     } catch (err) {
       return null

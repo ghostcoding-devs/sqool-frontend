@@ -1,3 +1,4 @@
 export default {
-  setCurrentUser: (state, payload) => { state.currentUser = payload.data }
+  setCurrentUser: (state, payload) => { 
+    state.currentUser = payload }
 }

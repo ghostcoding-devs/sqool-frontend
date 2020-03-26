@@ -7,8 +7,5 @@ export default {
     { name: '7B', id:'1231235123' },
     { name: '7B', id:'1234123123' }
     ],
-    currentUser: {
-        isTeacher: true,
-        email: 'lol@lol.de'
-    }
+    currentUser: {}
 }
